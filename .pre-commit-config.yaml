@@ -37,7 +37,7 @@ repos:
     rev: 21.9b0
     hooks:
       - id: black
-        args: [--line-length=79]
+        args: [--verbose, --config=submodules/template-python/pyproject.toml]
 
   # Hook to validate code style against PEP-8
   - repo: https://gitlab.com/pycqa/flake8
@@ -45,7 +45,7 @@ repos:
     hooks:
       - id: flake8
         args: [--config=submodules/template-python/.flake8]
-        additional_dependencies: [flake8-bugbear, flake8-docstrings]
+        additional_dependencies: [flake8-bugbear, flake8-docstrings, flake8-tidy-imports]
 
   # Hook to validate code style against PEP-8
   - repo: https://github.com/pycqa/pylint
@@ -75,8 +75,7 @@ repos:
       - id: pytest
         name: pytest
         entry:
-          sh -c 'python -m pytest -v; ret=$?; [ $ret = 5 ] && exit 0 || exit
-          $ret'
+          sh -c './submodules/template-python/test_runner.sh'
         types: [python]
         verbose: true
         language: system

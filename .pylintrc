@@ -11,7 +11,12 @@ ignore=CVS,migrations,templates,static
 
 # Add files or directories matching the regex patterns to the blacklist. The
 # regex matches against base names, not paths.
-ignore-patterns=
+# ignore-patterns=
+
+# Add files or directories matching the regex patterns to the ignore-list.
+# The regex matches against paths.
+# Ignore option doesn't work, hence I had to use this hacky regex
+ignore-paths=^(.*/|)migrations/.*$
 
 # Python code to execute, usually for sys.path manipulation such as
 # pygtk.require().
@@ -28,7 +33,7 @@ limit-inference-results=100
 
 # List of plugins (as comma separated values of python module names) to load,
 # usually to register additional checkers.
-load-plugins=
+load-plugins=pylint.extensions.bad_builtin
 
 # Pickle collected data for later comparisons.
 persistent=yes
@@ -585,3 +590,9 @@ valid-metaclass-classmethod-first-arg=cls
 # "BaseException, Exception".
 overgeneral-exceptions=BaseException,
                        Exception
+
+
+[DEPRECATED_BUILTINS]
+
+# List of builtins function names that should not be used, separated by a comma
+bad-functions=print

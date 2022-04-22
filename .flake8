@@ -4,6 +4,8 @@ extend-ignore =
     D105 # missing docstring in public method
     W503 # line break occurred before a binary operator
 doctests = True
+extend-exclude = /*/migrations/*
+ban-relative-imports = true
 
 # List of error codes:
 # http://www.pydocstyle.org/en/2.1.1/error_codes.html
