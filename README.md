@@ -13,7 +13,7 @@ In order to use this repo you need to be familiar with concept of
 [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
 
 1. Add this repo as a submodule to your project:
-   `git submodule add git@gitlab.com:vestigium/template-python.git submodules/template-python`
+   `git submodule add git@github.com:anty-filidor/template-python.git submodules/template-python`
 2. Integrate contents of `.gitignore` defined in the `pre-commit-template` with
    your project (optional):
    `git config core.excludesFile submodules/template-python/.gitignore`

@@ -16,7 +16,7 @@ ignore=CVS,migrations,templates,static
 # Add files or directories matching the regex patterns to the ignore-list.
 # The regex matches against paths.
 # Ignore option doesn't work, hence I had to use this hacky regex
-ignore-paths=^(.*/|)migrations/.*$
+ignore-paths=^(.*/|)migrations/.*$, ^(.*/|)test/.*$
 
 # Python code to execute, usually for sys.path manipulation such as
 # pygtk.require().
@@ -223,8 +223,8 @@ single-line-if-stmt=no
 
 # List of note tags to take in consideration, separated by a comma.
 notes=FIXME,
-      XXX,
-      TODO
+      ; XXX,
+      ; TODO
 
 
 [STRING]

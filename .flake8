@@ -3,8 +3,12 @@ max-line-length = 79
 extend-ignore =
     D105 # missing docstring in public method
     W503 # line break occurred before a binary operator
+    E203 # whitespace before semicolon
 doctests = True
-extend-exclude = /*/migrations/*
+extend-exclude = 
+    /*/migrations/* # migrations of the Django database
+    /*/test/* # testing scripts
+
 ban-relative-imports = true
 
 # List of error codes:
