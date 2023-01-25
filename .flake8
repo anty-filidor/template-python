@@ -7,7 +7,7 @@ extend-ignore =
 doctests = True
 extend-exclude = 
     /*/migrations/* # migrations of the Django database
-    /*/test/* # testing scripts
+    /*/tests/* # testing scripts
 
 ban-relative-imports = true
 
