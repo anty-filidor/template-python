@@ -17,7 +17,7 @@ In order to use this repo you need to be familiar with concept of
 2. Integrate contents of `.gitignore` defined in the `pre-commit-template` with
    your project (optional):
    `git config core.excludesFile submodules/template-python/.gitignore`
-3. Install `pre-commit` library: `pip install pre-commit pylint_django`
+3. Install `pre-commit` library: `pip install pre-commit pylint_django clang-format`
 4. Init hooks:
    `pre-commit install --config submodules/template-python/.pre-commit-config.yaml`
 5. To update the `pre-commit` configuration type:
