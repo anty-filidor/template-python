@@ -1,4 +1,14 @@
 #! /bin/bash
+
+# Check if the setup.py exists in the current directory. If so, then build the
+# module. It matters when project uses C/C++ extensions and they need to be
+# built to make project working properly.
+if [ -e "setup.py" ]; then
+    echo "Detected setup.py file in the project - trying to build it inplace."
+    python setup.py build_ext --inplace --quiet
+    rm -rf build
+fi
+
 if test -f "manage.py"; then
     echo "Detected Django project - running framework specific tests."
     python ./manage.py test
