@@ -1,13 +1,18 @@
 [flake8]
 max-line-length = 79
 extend-ignore =
-    D105 # missing docstring in public method
-    W503 # line break occurred before a binary operator
-    E203 # whitespace before semicolon
+    # missing docstring in public method
+    D105
+    # line break occurred before a binary operator
+    W503
+    # whitespace before semicolon
+    E203
 doctests = True
 extend-exclude = 
-    /*/migrations/* # migrations of the Django database
-    /*/tests/* # testing scripts
+    # migrations of the Django database
+    /*/migrations/*
+    # testing scripts
+    /*/tests/*
 
 ban-relative-imports = true
 
