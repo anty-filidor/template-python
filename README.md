@@ -13,13 +13,13 @@ In order to use this repo you need to be familiar with concept of
 [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
 
 1. Add this repo as a submodule to your project:
-   `git submodule add git@github.com:anty-filidor/template-python.git submodules/template-python`
+   `git submodule add git@github.com:anty-filidor/template-python.git template-python`
 2. Integrate contents of `.gitignore` defined in the `pre-commit-template` with
    your project (optional):
-   `git config core.excludesFile submodules/template-python/.gitignore`
+   `git config core.excludesFile template-python/.gitignore`
 3. Install `pre-commit` library: `pip install pre-commit pylint_django clang-format`
 4. Init hooks:
-   `pre-commit install --config submodules/template-python/.pre-commit-config.yaml`
+   `pre-commit install --config template-python/.pre-commit-config.yaml`
 5. To update the `pre-commit` configuration type:
    `git submodule update --remote --merge` (that command updates all submodules
    added to the project)

@@ -30,6 +30,7 @@ repos:
             "--force-grid-wrap=0",
             "--use-parentheses",
             "--line-width=79",
+            "--profile=black",
           ]
 
   # Hook to auto-format code to be compliant with PEP-8
@@ -37,29 +38,30 @@ repos:
     rev: 24.1.1
     hooks:
       - id: black
-        args: [--verbose, --config=submodules/template-python/pyproject.toml]
+        args: [--verbose, --config=template-python/.pc_config/pyproject.toml]
 
   # Hook to validate code style against PEP-8
   - repo: https://github.com/pycqa/flake8
     rev: 7.0.0
     hooks:
       - id: flake8
-        args: [--config=submodules/template-python/.flake8]
-        additional_dependencies: [flake8-bugbear, flake8-docstrings, flake8-tidy-imports]
+        args: [--config=template-python/.pc_config/.flake8]
+        additional_dependencies:
+          [flake8-bugbear, flake8-docstrings, flake8-tidy-imports]
 
   # Hook to validate code style against PEP-8
   - repo: https://github.com/pycqa/pylint
     rev: v3.0.3
     hooks:
       - id: pylint
-        args: [--rcfile=submodules/template-python/.pylintrc]
+        args: [--rcfile=template-python/.pc_config/.pylintrc]
 
   # Hook to validate static typing in the code
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.8.0
     hooks:
       - id: mypy
-        args: [--config=submodules/template-python/mypy.ini]
+        args: [--config=template-python/.pc_config/mypy.ini]
         additional_dependencies: [types-PyYAML, types-requests]
 
   # Hook to auto-format non python files (i.a. md, yaml, xml, json)
@@ -67,7 +69,12 @@ repos:
     rev: v3.1.0
     hooks:
       - id: prettier
-        args: [--ignore-path=submodules/template-python/.prettierignore, --config=submodules/template-python/.prettierrc, --ignore-unknown]
+        args:
+        [
+          --ignore-path=template-python/.pc_config/.prettierignore,
+          --config=template-python/.pc_config/.prettierrc,
+          --ignore-unknown
+        ]
 
   # Hooks to format C sources clang-format (formatter)
   - repo: https://github.com/pre-commit/mirrors-clang-format
@@ -82,7 +89,7 @@ repos:
       - id: pytest
         name: pytest
         entry:
-          sh -c './submodules/template-python/test_runner.sh'
+          sh -c 'template-python/.pc_config/test_runner.sh'
         types: [python]
         verbose: true
         language: system
