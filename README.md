@@ -1,17 +1,16 @@
 # `pre-commit` template for your Python project
 
-## How does it work?
-
-`pre-commit` is a tool that runs hooks at every attempt to commit changes that have been made in
-the repository. This project contains configuration files that makes it a useful tool to validate
-Python code against the official style-guides.
+`pre-commit` is a tool that runs hooks on every attempt to commit changes made in a repository.
+This project contains configuration files that make it a useful tool for validating Python code
+against official style guides.
 
 ## How to install it?
 
-The project is configured as a bunch of files that will be integrated with your project from an
-auxiliary remote. Once the configuration is completed, the remote can be used to update pre-commit.
+The project is configured as a set of files that can be integrated into your project from an
+auxiliary remote. Once the configuration is complete, the remote can be used to update
+`pre-commit`.
 
-1. Add this repo as an auxiliary remote of your project:
+1. Add this repository as an auxiliary remote to your project:
    ```bash
    git remote add pre-commit git@github.com:anty-filidor/template-python.git
    git fetch pre-commit
@@ -21,21 +20,28 @@ auxiliary remote. Once the configuration is completed, the remote can be used to
    ```bash
    pip install pre-commit pytest clang-format
    ```
-3. Pull the fresh code (to start and for updates as well):
+3. Pull the initial code (and use this command for future updates as well):
    ```bash
-   git pull pre-commit origin --allow-unrelated-histories
+   git pull pre-commit master --allow-unrelated-histories
    ```
-4. Init hooks:
+4. Initialise the hooks:
    ```bash
    pre-commit install --config .pre-commit-config.yaml
    ```
 
-## How to work with it?
+## How does it work?
 
-After the `pre-commit` is successfully installed you work just as before. The main difference is
-that after each execution of the `git commit` command, several tools are going to be ran to check
-the **staged code** and, in case of any shortcomings, the `commit` operation will be aborted.
+After `pre-commit` has been successfully installed, you can work as before. The main difference is
+that, after each execution of the `git commit` command, several tools are run to check the
+staged code and, if any issues are detected, the `commit` operation is aborted.
 
-Two most important ways to "hack" `pre-commit`:
-- `git commit -m "message" --no-verify` -> code check will be skipped
-- `pre-commit run --all-files` -> entire codebase will be checked, not only files staged in git
+The two most important ways to “hack” `pre-commit` are:
+- `git commit -m "message" --no-verify`: code checks are skipped;
+- `pre-commit run --all-files`: the entire codebase is checked, not only the staged files.
+
+## How to develop this project?
+
+Below is a set of guidelines to avoid issues when using the tool in third-party repositories:
+- maintain a linear commit history (no merge commits);
+- tag each release as `pc<major>.<minor>.<patch>`, e.g. `pc0.2.1`;
+- keep this repository minimal, as it is intended to be merged into “real” projects.
