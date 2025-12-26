@@ -23,16 +23,16 @@ repos:
     rev: v0.14.10
     hooks:
       - id: ruff-check
-        args: [--config=.pre_commit/.pc_config/ruff.toml]
+        args: [--verbose, --config=.pc_config/ruff.toml, --fix]
       - id: ruff-format
-        args: [--config=.pre_commit/.pc_config/ruff.toml]
+        args: [--verbose, --config=.pc_config/ruff.toml]
 
   # Hook to validate static typing in the code
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.8.0
+    rev: v1.19.1
     hooks:
       - id: mypy
-        args: [--config=template-python/.pc_config/mypy.ini]
+        args: [--config=.pc_config/mypy.ini]
         additional_dependencies: [types-PyYAML, types-requests]
 
   # Hook to auto-format non python files (i.a. md, yaml, xml, json)
@@ -42,25 +42,24 @@ repos:
       - id: prettier
         args:
           [
-            --ignore-path=template-python/.pc_config/.prettierignore,
-            --config=template-python/.pc_config/.prettierrc,
-            --ignore-unknown
+            --ignore-path=.pc_config/.prettierignore,
+            --config=.pc_config/.prettierrc,
+            --ignore-unknown,
           ]
 
   # Hooks to format C sources clang-format (formatter)
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v17.0.6
+    rev: v21.1.8
     hooks:
-    - id: clang-format
-      args: [--style=Google]
+      - id: clang-format
+        args: [--style=Google]
 
   # Hook to automatically trigger tests (it will pass if no tests are found too - exit code is 5)
   - repo: local
     hooks:
       - id: pytest
         name: pytest
-        entry:
-          sh -c 'template-python/.pc_config/test_runner.sh'
+        entry: sh -c '.pc_config/test_runner.sh'
         types: [python]
         verbose: true
         language: system

@@ -1,5 +1,6 @@
 line-length = 100
-target-version = "py312"  # adjust if needed
+indent-width = 4
+target-version = "py312"
 
 # Exclude paths (Flake8 extend-exclude equivalent)
 exclude = [
@@ -7,8 +8,8 @@ exclude = [
     "*/tests/*",
 ]
 
-[lint]
 # Enable Flake8-equivalent rule sets
+[lint]
 select = [
     "E",   # pycodestyle errors
     "W",   # pycodestyle warnings
@@ -16,30 +17,17 @@ select = [
     "D",   # pydocstyle
     "I",   # isort
 ]
-
-# Ignore rules (extend-ignore equivalent)
 ignore = [
-    "D105",  # missing docstring in magic method
-    "W503",  # line break before binary operator
-    "E203",  # whitespace before ':'
+    "D105", # missing docstring in magic method
+    "E203", # whitespace before ':'
 ]
 
-# Enable doctest checking (flake8: doctests = True)
-doctests = true
-
 [lint.pydocstyle]
-# Ruff defaults to pep257; this keeps behaviour aligned with flake8-docstrings
-# http://www.pydocstyle.org/en/2.1.1/error_codes.html
-# https://lintlyci.github.io/Flake8Rules/
 convention = "pep257"
 
 [lint.isort]
-# isort-compatible settings
-profile = "black"
-line-length = 100
 combine-as-imports = true
 force-wrap-aliases = false
 
-[format]
-# Black-equivalent formatting
-line-length = 100
+[lint.flake8-tidy-imports]
+ban-relative-imports = "all"

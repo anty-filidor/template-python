@@ -1,48 +1,41 @@
-# Template with `pre-commit` configuration for your Python project!
+# `pre-commit` template for your Python project
 
 ## How does it work?
 
-`pre-commit` is a tool that runs so-called hooks at every attempt to commit
-changes that have been made in the repository. This project contains such
-configuration files, that makes from it a useful tool to validate Python code
-against official style guides.
+`pre-commit` is a tool that runs hooks at every attempt to commit changes that have been made in
+the repository. This project contains configuration files that makes it a useful tool to validate
+Python code against the official style-guides.
 
 ## How to install it?
 
-In order to use this repo you need to be familiar with concept of
-[git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
+The project is configured as a bunch of files that will be integrated with your project from an
+auxiliary remote. Once the configuration is completed, the remote can be used to update pre-commit.
 
-1. Add this repo as a submodule to your project:
-   `git submodule add git@github.com:anty-filidor/template-python.git template-python`
-2. Integrate contents of `.gitignore` defined in the `pre-commit-template` with
-   your project (optional):
-   `git config core.excludesFile template-python/.gitignore`
-3. Install `pre-commit` library: `pip install pre-commit pylint_django clang-format`
+1. Add this repo as an auxiliary remote of your project:
+   ```bash
+   git remote add pre-commit git@github.com:anty-filidor/template-python.git
+   git fetch pre-commit
+   git config pull.rebase false
+   ```
+2. Install `pre-commit` library and dependencies:
+   ```bash
+   pip install pre-commit pytest clang-format
+   ```
+3. Pull the fresh code (to start and for updates as well):
+   ```bash
+   git pull pre-commit origin --allow-unrelated-histories
+   ```
 4. Init hooks:
-   `pre-commit install --config template-python/.pre-commit-config.yaml`
-5. To update the `pre-commit` configuration type:
-   `git submodule update --remote --merge` (that command updates all submodules
-   added to the project)
+   ```bash
+   pre-commit install --config .pre-commit-config.yaml
+   ```
 
 ## How to work with it?
 
-After the `pre-commit` is successfully installed you can basically work just as
-before. The main difference you will notice is that after you execute
-`git commit` command, several tools will be ran to check your code and, in
-case of detection of issues, the "commit" operation will be aborted. There is
-also one issue worth of noting: conflict of `pre-commit` with GUI tools for
-Git. They just don't like themselves, so that you will be able to use only CLI
-for committing your changes in the codebase. The last important thing is a
-possibility to skip code validation. In case of need to quickly save your work
-and push it to the GitLab you can skip `pre-commit` execution by adding flag
-`--no-verify` at the very end of the `git commit` command. Remember to add
-`WIP:` prefix to the commit name then.
+After the `pre-commit` is successfully installed you work just as before. The main difference is
+that after each execution of the `git commit` command, several tools are going to be ran to check
+the **staged code** and, in case of any shortcomings, the `commit` operation will be aborted.
 
-## Pre-commit vs linters in your IDE
-
-Of course, it's possible, but why? Pre-commit will do its job regardless your 
-local IDE configuration... Anyway, if you're so determined, then here is a
-trick: create symbolic links to (or just copy) configuration files of the hooks. 
-This will provide at least a bit of consistency between your IDE and pre-commit
-(for instance it's hardly probable the version of black you have will be the 
-same as in the `yaml` file).
+Two most important ways to "hack" `pre-commit`:
+- `git commit -m "message" --no-verify` -> code check will be skipped
+- `pre-commit run --all-files` -> entire codebase will be checked, not only files staged in git
