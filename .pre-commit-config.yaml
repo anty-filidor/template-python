@@ -5,7 +5,7 @@
 repos:
   # Out of the box hooks for pre-commit
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -18,50 +18,21 @@ repos:
       - id: check-added-large-files
         args: ["--maxkb=5000"]
 
-  # Hook to sort import statements
-  - repo: https://github.com/pycqa/isort
-    rev: 5.13.2
+  # Ruff
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.10
     hooks:
-      - id: isort
-        args:
-          [
-            "--multi-line=3",
-            "--trailing-comma",
-            "--force-grid-wrap=0",
-            "--use-parentheses",
-            "--line-width=79",
-            "--profile=black",
-          ]
-
-  # Hook to auto-format code to be compliant with PEP-8
-  - repo: https://github.com/psf/black
-    rev: 24.1.1
-    hooks:
-      - id: black
-        args: [--verbose, --config=template-python/.pc_config/pyproject.toml]
-
-  # Hook to validate code style against PEP-8
-  - repo: https://github.com/pycqa/flake8
-    rev: 7.0.0
-    hooks:
-      - id: flake8
-        args: [--config=template-python/.pc_config/.flake8]
-        additional_dependencies:
-          [flake8-bugbear, flake8-docstrings, flake8-tidy-imports]
-
-  # Hook to validate code style against PEP-8
-  - repo: https://github.com/pycqa/pylint
-    rev: v3.0.3
-    hooks:
-      - id: pylint
-        args: [--rcfile=template-python/.pc_config/.pylintrc]
+      - id: ruff-check
+        args: [--verbose, --config=.pc_config/ruff.toml, --fix]
+      - id: ruff-format
+        args: [--verbose, --config=.pc_config/ruff.toml]
 
   # Hook to validate static typing in the code
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.8.0
+    rev: v1.19.1
     hooks:
       - id: mypy
-        args: [--config=template-python/.pc_config/mypy.ini]
+        args: [--config=.pc_config/mypy.ini]
         additional_dependencies: [types-PyYAML, types-requests]
 
   # Hook to auto-format non python files (i.a. md, yaml, xml, json)
@@ -71,27 +42,26 @@ repos:
       - id: prettier
         args:
           [
-            --ignore-path=template-python/.pc_config/.prettierignore,
-            --config=template-python/.pc_config/.prettierrc,
-            --ignore-unknown
+            --ignore-path=.pc_config/.prettierignore,
+            --config=.pc_config/.prettierrc,
+            --ignore-unknown,
           ]
 
   # Hooks to format C sources clang-format (formatter)
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v17.0.6
+    rev: v21.1.8
     hooks:
-    - id: clang-format
-      args: [--style=Google]
+      - id: clang-format
+        args: [--style=Google]
 
-  # Hook to automatically trigger all tests (it will pass also if no tests are found, i.e. exit code is 5)
+  # Hook to automatically trigger tests (it will pass if no tests are found too - exit code is 5)
   - repo: local
     hooks:
       - id: pytest
         name: pytest
-        entry:
-          sh -c 'template-python/.pc_config/test_runner.sh'
+        entry: sh -c '.pc_config/test_runner.sh'
         types: [python]
         verbose: true
         language: system
         pass_filenames: false
-        stages: [commit]
+        stages: [pre-commit]
